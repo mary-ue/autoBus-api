@@ -12,6 +12,9 @@ const port = 3000;
 
 const app = express();
 
+// добавить возможность работать со статическими файлами фронтенда
+app.use(express.static(path.join(__dirname, "public")));
+
 const loadBuses = async () => {
   const data = await readFile(path.join(__dirname, "buses.json"), "utf-8");
   return JSON.parse(data);
@@ -91,4 +94,3 @@ app.get("/next-departure", async (req, res) => {
 app.listen(port, () => {
   console.log(`Server running on http://localhost:${port}`);
 });
-
