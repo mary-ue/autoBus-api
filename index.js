@@ -70,7 +70,7 @@ const sendUpdatedData = async () => {
     return {
       ...bus,
       nextDeparture: {
-        data: nextDeparture.toFormat("yyyy-MM-dd"),
+        date: nextDeparture.toFormat("yyyy-MM-dd"),
         time: nextDeparture.toFormat("HH:mm:ss"),
       },
     };
@@ -81,11 +81,22 @@ const sendUpdatedData = async () => {
 
 // const updatedBuses = sendUpdatedData();
 
+const sortBuses = (buses) => 
+  [...buses].sort(
+    (a, b) =>
+      new Date(`${a.nextDeparture.date}T${a.nextDeparture.time}`) -
+      new Date(`${b.nextDeparture.date}T${b.nextDeparture.time}`)
+  );
+
+
 app.get("/next-departure", async (req, res) => {
   try {
     const updatedBuses = await sendUpdatedData();
+    const sortedBuses = sortBuses(updatedBuses);
+    // console.log(sortedBuses)
 
-    res.json(updatedBuses);
+    res.json(sortedBuses);
+    // res.json(updatedBuses)
   } catch (error) {
     res.send("error");
   }

@@ -12,7 +12,7 @@ const fetchBusData = async () => {
   }
 };
 
-const formatDate = (date) => date.toISOString().split('T')[0];
+const formatDate = (date) => date.toISOString().split("T")[0];
 const formatTime = (date) => date.toTimeString().split(" ")[0].slice(0, 5);
 
 const renderBusData = (buses) => {
@@ -23,7 +23,7 @@ const renderBusData = (buses) => {
     const row = document.createElement("tr");
 
     const nextDepartureDateTimeUTC = new Date(
-      `${bus.nextDeparture.data}T${bus.nextDeparture.time}Z`
+      `${bus.nextDeparture.date}T${bus.nextDeparture.time}Z`
     );
 
     row.innerHTML = `
